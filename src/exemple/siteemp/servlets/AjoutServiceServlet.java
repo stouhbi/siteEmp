@@ -18,7 +18,7 @@ import exemple.siteemp.models.Service;
 @WebServlet("/AjoutServiceServlet")
 public class AjoutServiceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,7 +38,7 @@ public class AjoutServiceServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		if(!request.getParameter("txtlib").equals("")) {
 			Service service = new Service(0,request.getParameter("txtlib"));
 			if(service.isValid()) {
@@ -46,25 +46,25 @@ public class AjoutServiceServlet extends HttpServlet {
 				boolean resultInsert = OutilsBDD.addService(service);
 				if (resultInsert != true) {
 					ArrayList<String> string = service.getErrors();
-					string.add("Insertion Impossible");
+					string.add("Insertion Impossibles");
 					request.setAttribute("errors",string );
 					doGet(request, response);
 				}else {
 					//request.setAttribute("msg","Ajout du service effectue" );
 					response.sendRedirect("/siteEmp");
 				}
-				
+
 
 			}else {
 				System.out.println("erreurs detecte sur l'objet");
 				request.setAttribute("errors", service.getErrors());
 				doGet(request, response);
 			}
-			
+
 		}else {
 			doGet(request, response);
 		}
-		
+
 	}
 
 }
